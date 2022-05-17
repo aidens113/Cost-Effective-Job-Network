@@ -3,6 +3,7 @@ The Network is a collection of freelance job boards and marketplaces on Telegram
 
 
 <h1>SETUP</h1><br>
+
 **1. GMAIL SMTP**<br>
 -Install the lastest version of chromedriver: https://chromedriver.chromium.org/downloads and put it in the same folder as main.py.<br>
 -Sign up for a Gmail account: https://gmail.com and configure a custom app password: https://support.google.com/mail/answer/185833?hl=en. <br>
