@@ -4,12 +4,15 @@ The Network is a collection of freelance job boards and marketplaces on Telegram
 
 **Main.py Setup**
 
-GMAIL SMTP:
+**1. GMAIL SMTP**
+
 -Install the lastest version of chromedriver: https://chromedriver.chromium.org/downloads and put it in the same folder as main.py.
 -Sign up for a Gmail account: https://gmail.com and configure a custom app password: https://support.google.com/mail/answer/185833?hl=en. 
 -Configure your Gmail SMTP details at the top of main.py (lines 33-34) using your Gmail email and the newly created app password.
 
-UPLOAD PHP FILES TO WEBSERVER
+
+**2. UPLOAD PHP FILES TO WEBSERVER**
+
 -Setup a domain and hosting plan (I personally recommend Hostinger: https://hostinger.com). Buy a cheap $1 for the first year domain.
 -Upload the "mmbot" directory to your web hosting plan.
 -Create a new MySQL DB. Grab the database name, username, password. 
