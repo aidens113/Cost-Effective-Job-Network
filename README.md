@@ -26,3 +26,8 @@ The Network is a collection of freelance job boards and marketplaces on Telegram
 -Join all the Discord servers you want the bot to broadcast in. **Use the web version of Discord to get links to every channel you want to broadcast in.**<br>
 -Add every Discord server channel link to a custom named file. The main.py program will automatically grab new lists and you can choose to post to one or all of the lists. This allows you to create super niched down lists of servers. You can also use the lists that I included in /discordnetwork. Make sure to put all Discord list files in /discordnetwork.<br>
 -You will need to be logged into Discord already on the computer you are running this bot. It's much safer to stay logged in and post. If the bot needs to log in every time it runs, you will be at much more risk of being banned.<br>
+-Setup a Discord bot and get the API token: https://techbriefly.com/2021/12/30/how-to-get-a-discord-bot-token/
+
+**5. RUN AND DEBUG**
+-This is a fairly complex script with a lot of moving parts. Be patient and debug carefully. Feel free to open a question or issue request if you have any problems. 
+-Enjoy!
