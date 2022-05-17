@@ -2,8 +2,7 @@
 The Network is a collection of freelance job boards and marketplaces on Telegram and Discord. The Network bot automatically posts messages to these chatrooms, allowing employers to get free applications.
 
 
-**Main.py Setup**
-
+<h1>SETUP</h1><br>
 **1. GMAIL SMTP**<br>
 -Install the lastest version of chromedriver: https://chromedriver.chromium.org/downloads and put it in the same folder as main.py.<br>
 -Sign up for a Gmail account: https://gmail.com and configure a custom app password: https://support.google.com/mail/answer/185833?hl=en. <br>
