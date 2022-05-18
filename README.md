@@ -18,7 +18,7 @@ The Network is a collection of freelance job boards and marketplaces on Telegram
 **3. TELEGRAM API SETUP**<br>
 -Setup a new Telegram account and join groups that you want to broadcast job applications to. I've included multiple lists that you can use. You will have to manually join every group that the bot will broadcast in. <br>
 -Setup new Telegram API ID and hash https://core.telegram.org/api/obtaining_api_id<br>
--Input your Telegram API ID and hash on lines 171-172<br>
+-Input your Telegram API ID and hash on lines 171-172 in main.py<br>
 
 **4. DISCORD SETUP**<br>
 -This part is a bit tricky. There is a high likelyhood of your Discord account being banned, especially if you are running this 24/7. Discord is very ban-heavy so you will most likely need multiple phone numbers to create new Discord accounts each time one gets banned. If you run it sparingly and only join legit Discord servers, then it's much less likely you will be banned.<br>
