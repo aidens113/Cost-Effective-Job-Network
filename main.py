@@ -35,31 +35,37 @@ gmail_app_password = 'gmailAppPassword'
     
 thesemsgs = []
 
+#Press keyboard key using .send_keys method
 def press_key(key, driver):
     actions = ActionChains(driver)
     actions.send_keys(key)
     actions.perform()
 
+#Press keys with random interval in between using ActionChains in Selenium to simulate real keyboard/mouse actions
 def randPressKeys(driver,thesekeys):
     for myi in thesekeys:
         press_key(myi,driver)
         time.sleep(random.uniform(0.01, 0.2))
-        
+       
+#Press key down using ActionChains
 def thisKeyDown(driver,key):
     actions = ActionChains(driver)
     actions.key_down(key)
     actions.perform()
 
+#Press key up using ActionChains
 def thisKeyUp(driver,key):
     actions = ActionChains(driver)
     actions.key_up(key)
     actions.perform()
 
+#Send keys with .send_keys method with random interval
 def randkeys(element, keys, driver):
     for myi in keys:
         element.send_keys(myi)
         time.sleep(random.uniform(0.05, 0.25))
-        
+       
+#Initiate webdriver function, great for multithreading
 def initdriver(doData):
     chrome_options = webdriver.ChromeOptions()
 
@@ -67,6 +73,7 @@ def initdriver(doData):
     chrome_options.add_experimental_option('useAutomationExtension', False)
     chrome_options.add_argument('--disable-blink-features=AutomationControlled')
     if doData == True:
+        #Your chrome profile directory
         chrome_options.add_argument("user-data-dir=C:\\Users\\yourUsernameHere\\AppData\\Local\\Google\\Chrome\\User Data\\")
     #chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(executable_path='chromedriver.exe',options=chrome_options)
@@ -75,7 +82,7 @@ def initdriver(doData):
     #driver.set_window_position(-10000,0)
     return driver
 
-
+#Strip URL down to domain
 def getDomain(url):
     try:
         domain = url.split("//")[1]
@@ -95,10 +102,8 @@ def getDomain(url):
         return url
 
 
-
+#Initiates Discord client
 client = discord.Client()
-
-        
 @client.event
 async def on_ready():
     print('Logged in as')
@@ -106,7 +111,7 @@ async def on_ready():
     print(client.user.id)
     print('------')
 
-
+#Sends message to Discord channel on your server
 async def sendMsg():
     global thesemsgs
     while True:
@@ -122,11 +127,12 @@ async def sendMsg():
         except Exception as EEEEE:
             print("ERR msg: "+str(EEEEE))
 
+#Send incoming resumes to resumes global object for use by other functions
 def sendresumes():
     global thesemsgs
     resumes = []
     while True:
-        response = requests.get("https://yourdomain/mmbot/incomingApplications.txt",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
+        response = requests.get("https://yourdomain.com/mmbot/incomingApplications.txt",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
         allmsgs = str(response.text)
         print(allmsgs)
         firstResumes = allmsgs.split("END")
@@ -139,22 +145,23 @@ def sendresumes():
             for msg in resumes:
                 thesemsgs.append([949822226679607336,msg])
             resumes = []
-            requests.get("https://yourdomain/mmbot/moderation.php?cmd=deleteOldApplications",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
+            requests.get("https://yourdomain.com/mmbot/moderation.php?cmd=deleteOldApplications",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
             time.sleep(3)
         time.sleep(60)
 
+#Update incoming jobs, queue to post on chatrooms
 def updateJobs():
     while True:
         try:
             jobs = []
-            response = requests.get("https://yourdomain/mmbot/directory/",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
+            response = requests.get("https://yourdomain.com/mmbot/directory/",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
             allmsgs = str(response.text)
             #print(allmsgs)
             firstJobs = allmsgs.split('<a href=')
             for job in firstJobs:
                 if '"/mmbot/directory/jobpost' in str(job):
                     print("found new jobs")
-                    jobURL = str("https://yourdomain/mmbot/directory/"+str(job.split('"/mmbot/directory/')[1].split('"')[0])+"\n")
+                    jobURL = str("https://yourdomain.com/mmbot/directory/"+str(job.split('"/mmbot/directory/')[1].split('"')[0])+"\n")
                     jobs.append(jobURL)
 
             file = open("jobsToPromote.txt","w")
@@ -165,6 +172,7 @@ def updateJobs():
             print("ERR updatejobs: "+str(EEEEE))
             time.sleep(60)
 
+#Post messages to custom list of Telegram channels/groups
 def postToTelegram(theList,secondsToWait):
     while True:
         try:
@@ -197,6 +205,7 @@ def postToTelegram(theList,secondsToWait):
             if secondsToWait == 0:
                 return
         
+#Promote incoming jobs to Telegram and Discord
 def promoteIncomingJobs():
     while True:
         try:
@@ -219,7 +228,7 @@ def promoteIncomingJobs():
         except Exception as EEEEE:
             print("ERR"+str(EEEEE))
 
-
+#Send job promos to Discord servers custom list
 def sendDiscordMsg(theList,secondsToWait):
     while True:
         try:
