@@ -32,7 +32,7 @@ from telethon import TelegramClient, events, sync
 
 gmail_user = 'email'
 gmail_app_password = 'gmailAppPassword'
-    
+MYURL="https://yourdomain.com"
 thesemsgs = []
 
 #Press keyboard key using .send_keys method
@@ -129,10 +129,11 @@ async def sendMsg():
 
 #Send incoming resumes to resumes global object for use by other functions
 def sendresumes():
+    global MYURL
     global thesemsgs
     resumes = []
     while True:
-        response = requests.get("https://yourdomain.com/mmbot/incomingApplications.txt",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
+        response = requests.get(str(MYURL)+"/mmbot/incomingApplications.txt",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
         allmsgs = str(response.text)
         print(allmsgs)
         firstResumes = allmsgs.split("END")
@@ -145,7 +146,7 @@ def sendresumes():
             for msg in resumes:
                 thesemsgs.append([949822226679607336,msg])
             resumes = []
-            requests.get("https://yourdomain.com/mmbot/moderation.php?cmd=deleteOldApplications",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
+            requests.get(str(MYURL)+"/mmbot/moderation.php?cmd=deleteOldApplications",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
             time.sleep(3)
         time.sleep(60)
 
@@ -154,14 +155,14 @@ def updateJobs():
     while True:
         try:
             jobs = []
-            response = requests.get("https://yourdomain.com/mmbot/directory/",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
+            response = requests.get(str(MYURL)+"/mmbot/directory/",headers={"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36"})
             allmsgs = str(response.text)
             #print(allmsgs)
             firstJobs = allmsgs.split('<a href=')
             for job in firstJobs:
                 if '"/mmbot/directory/jobpost' in str(job):
                     print("found new jobs")
-                    jobURL = str("https://yourdomain.com/mmbot/directory/"+str(job.split('"/mmbot/directory/')[1].split('"')[0])+"\n")
+                    jobURL = str(str(MYURL)+"/mmbot/directory/"+str(job.split('"/mmbot/directory/')[1].split('"')[0])+"\n")
                     jobs.append(jobURL)
 
             file = open("jobsToPromote.txt","w")
